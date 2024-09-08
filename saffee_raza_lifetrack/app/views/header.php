@@ -5,16 +5,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Life Track - Expense Tracker</title>
-        <script src="./js/jquery.min.js"></script>
-        <link rel="stylesheet" href="./css/style.css">
+        <script src="<?php echo BASE_URL; ?>js/jquery.min.js"></script>
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/style.css">
     </head>
 
     <body>
         <header>
-            <h1>Life Track - Expense Tracker</h1>
-            <nav>
-                <button class="nav-link">Add Transaction</button>
-                <a href="<?php echo BASE_URL; ?>user/logout">Logout</a>
-            </nav>
+            <div class="container">
+                <img src="<?php echo BASE_URL; ?>img/logo.png" alt="Logo" class="h-logo">
+                <nav>
+                    <button class="btn btn-success" id="add-transaction-btn">Add Transaction</button>
+                    <a class="btn btn-danger" href="<?php echo BASE_URL; ?>user/logout">Logout</a>
+                </nav>
+            </div>
         </header>
         <main>

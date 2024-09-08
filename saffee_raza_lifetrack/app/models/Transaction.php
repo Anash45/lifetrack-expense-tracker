@@ -11,10 +11,10 @@ class Transaction {
         $conditions = [];
 
         if ($startDate) {
-            $conditions[] = "date >= :startDate";
+            $conditions[] = "DATE(date) >= :startDate";
         }
         if ($endDate) {
-            $conditions[] = "date <= :endDate";
+            $conditions[] = "DATE(date) <= :endDate";
         }
 
         if ($conditions) {

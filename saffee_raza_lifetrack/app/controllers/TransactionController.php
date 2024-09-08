@@ -8,19 +8,21 @@ class TransactionController {
         $transactions = $transactionModel->getTransactions($startDate, $endDate);
 
         $totalExpense = $totalIncome = 0;
-        foreach ($transactions as $transaction) {
+        foreach ($transactions as $key => $transaction) {
             if($transaction['type'] == 'income'){
                 $totalIncome += $transaction['amount'];
             }else if($transaction['type'] == 'expense'){
                 $totalExpense += $transaction['amount'];
             }
+            $transaction['amount'] = number_format($transaction['amount'], 2);
+            $transactions[$key]['date'] = date('h:i a | d M, Y', strtotime($transaction['date']));
         }
 
         echo json_encode(array('transactions' => $transactions,'totalExpense' => $totalExpense,'totalIncome' => $totalIncome));
     }
 
     public function add() {
-        $description = $_POST['edit_desc'];
+        $description = $_POST['desc'];
         $amount = $_POST['amount'];
         $type = $_POST['type'];
         $user_id = $_SESSION['user_id'];

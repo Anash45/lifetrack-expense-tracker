@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Set the base directory (remove 'public' from URLs)
-RewriteBase /hanzalah/saffeeraza/saffee_raza_lifetrack/public/
+RewriteBase /saffee_raza_lifetrack/public/
 
 # Redirect all requests to index.php, except for real files or directories
 RewriteCond %{REQUEST_FILENAME} !-f

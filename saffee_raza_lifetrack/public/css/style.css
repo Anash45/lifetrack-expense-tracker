@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: "Poppins", sans-serif;
+}
+header {
+    padding: 10px;
+    border-bottom: 4px solid saddlebrown;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.h-logo {
+    height: 50px;
+}
+
+main{
+    padding: 30px 0;
+    min-height: calc(100vh - 159px);
+}
+
+footer{
+    padding: 5px;
+    text-align: center;
+    border-top: 4px solid saddlebrown;
+}
+
+header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn,.inp {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out;
+}
+
+.inp{
+    border: 1px solid #c0c0c0;
+    width: 100%;
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+
+/* Success Button */
+.btn-success {
+    background-color: #198754;
+    border: 1px solid #198754;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+
+/* Danger Button */
+.btn-danger {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
+/* Warning Button */
+.btn-warning {
+    background-color: #ffc107;
+    border: 1px solid #ffc107;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+/* Info Button */
+.btn-info {
+    background-color: #0dcaf0;
+    border: 1px solid #0dcaf0;
+    color: #000;
+}
+
+.btn-info:hover {
+    background-color: #31d2f2;
+    border-color: #25cff2;
+}
+
+/* Light Button */
+.btn-light {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    color: #000;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+
+/* Dark Button */
+.btn-dark {
+    background-color: #212529;
+    border: 1px solid #212529;
+    color: #fff;
+}
+
+.btn-dark:hover {
+    background-color: #1d2124;
+    border-color: #171a1d;
+}
+
+.form-group{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.title,.form-title{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.title{
+    padding-bottom: 10px;
+}
+
+.form-box{
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #c0c0c0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #efefef;
+}
+
+.date-filter-form{
+    display: flex;
+    gap: 15px;
+    align-items: end;
+}
+
+.date-filter-form>div{
+    flex: 1;
+}
+table{
+    width: 100%;
+}
+
+td,th{
+    padding: 5px;
+    text-align: center;
+}
+table, th,td{
+    border: 1px solid #c0c0c0;
+    border-collapse: collapse;
+}
+
+.expense-badge{
+    background-color: orangered;
+    color: white;
+    text-transform: capitalize;
+    border-radius: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 100%;
+}
+.income-badge{
+    background-color: #0d6efd;
+    color: white;
+    text-transform: capitalize;
+    border-radius: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 100%;
+}
+
+.totals{
+    display: flex;
+}
+
+.totals>div{
+    font-weight: 700;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.totals h3{
+    font-size: 30px;
+}
+
+.income-total{
+    color: #0b5ed7;
+}
+
+.expense-total{
+    color: orangered;
+}
+.login-form{
+    max-width: 450px;
+    margin: 50px auto;
+}
+
+.form-note a{
+    color: #0a58ca;
+    text-decoration: underline;
+}

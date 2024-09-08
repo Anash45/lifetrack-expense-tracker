@@ -1,6 +1,9 @@
 </main>
-    <footer>
+<footer>
+    <div class="container">
         <p>&copy; <?php echo date('Y'); ?> Life Track - Expense Tracker. All rights reserved.</p>
-    </footer>
+    </div>
+</footer>
 </body>
+
 </html>

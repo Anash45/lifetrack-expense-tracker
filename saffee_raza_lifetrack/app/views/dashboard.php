@@ -1,82 +1,117 @@
-<!-- app/views/dashboard.php -->
-<?php 
-include 'header.php'; 
-// Redirect to login if user is not logged in and accessing a protected route
+<?php
+include 'header.php';
 if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !== 'login' && $methodName !== 'register') {
     header('Location: ' . BASE_URL . 'user/login');
     exit();
 }
 ?>
-<h2>Dashboard</h2>
-<div id="addFormDiv">
-    <!-- Add Transaction Form -->
-    <h3>Add Transaction</h3>
-    <form id="addTransactionForm">
-        <label for="desc">Description:</label>
-        <input type="text" id="desc" name="desc" required>
-        <br><br>
-        <label for="type">Type:</label>
-        <select id="type" name="type" required>
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
-        </select>
-        <br><br>
-        <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" required>
-        <br><br>
-        <button type="submit">Add Transaction</button>
-    </form>
+<div class="container">
+    <h2 class="title">Dashboard</h2>
+    <div id="addFormDiv" class="form-box" style="display: none;">
+        <!-- Add Transaction Form -->
+        <h3 class="form-title">Add Transaction</h3>
+        <form id="addTransactionForm">
+            <div class="form-group">
+                <label for="desc">Description:</label>
+                <input type="text" id="desc" class="inp" name="desc" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select id="type" class="inp" name="type" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" class="inp" name="amount" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Add Transaction</button>
+            </div>
+        </form>
+    </div>
+    <div id="editFormDiv" class="form-box" style="display: none;">
+        <!-- Edit Transaction Form -->
+        <h3 class="form-title">Edit Transaction</h3>
+        <form id="editTransactionForm">
+            <input type="hidden" name="edit_id" id="edit_id">
+            <div class="form-group">
+                <label for="desc">Description:</label>
+                <input type="text" id="edit_desc" class="inp" name="edit_desc" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select id="edit_type" class="inp" name="edit_type" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="edit_amount" class="inp" name="edit_amount" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info">Update Transaction</button>
+            </div>
+        </form>
+    </div>
+    <div class="form-box">
+        <!-- Date Range Filter Form -->
+        <form id="dateFilterForm" class="date-filter-form">
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" class="inp" name="startDate">
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" class="inp" name="endDate">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div class="">
+        <!-- Transactions Table -->
+        <h3 class="form-title">Transactions</h3>
+        <div class="totals">
+            <div class="income-total">
+                <span>Total Income</span>
+                <h3 class="income-total-amount">$3000.00</h3>
+            </div>
+            <div class="expense-total">
+                <span>Total Expense</span>
+                <h3 class="expense-total-amount">$3000.00</h3>
+            </div>
+            <div class="net-total">
+                <span>Net Total</span>
+                <h3 class="net-total-amount">$3000.00</h3>
+            </div>
+        </div>
+        <table id="transactionsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
 </div>
-<div id="editFormDiv">
-    <!-- Edit Transaction Form -->
-    <h3>Edit Transaction</h3>
-    <form id="editTransactionForm">
-        <input type="hidden" name="edit_id" id="edit_id">
-        <label for="desc">Description:</label>
-        <input type="text" id="edit_desc" name="edit_desc" required>
-        <br><br>
-        <label for="type">Type:</label>
-        <select id="edit_type" name="edit_type" required>
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
-        </select>
-        <br><br>
-        <label for="amount">Amount:</label>
-        <input type="number" id="edit_amount" name="edit_amount" required>
-        <br><br>
-        <button type="submit">Update Transaction</button>
-    </form>
-</div>
-<!-- Date Range Filter Form -->
-<form id="dateFilterForm">
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate">
-    <br><br>
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate">
-    <br><br>
-    <button type="submit">Filter</button>
-</form>
-<!-- Transactions Table -->
-<h3>Transactions</h3>
-<table id="transactionsTable">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Table rows will be populated by AJAX -->
-    </tbody>
-</table>
 <script>
     // Load transactions on page load
     $(document).ready(function () {
+        $('#add-transaction-btn').on('click', function () {
+            $('#addFormDiv').fadeIn();
+        });
         loadTransactions();
 
         // Handle date filter form submission
@@ -94,7 +129,7 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
                 data: $(this).serialize(),
                 success: function (response) {
                     console.log(response);
-                    alert('Transaction added successfully!');
+                    $('#addFormDiv').hide();
                     $('#addTransactionForm')[0].reset();
                     loadTransactions();
                 },
@@ -106,23 +141,23 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
 
         $('#editTransactionForm').on('submit', function (e) {
             e.preventDefault();
-            if($('#edit_id').val() == ''){
+            if ($('#edit_id').val() == '') {
                 alert('No edit id is present!');
-            }else{
+            } else {
                 $.ajax({
-                url: '<?php echo BASE_URL; ?>transaction/edit',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (response) {
-                    console.log(response);
-                    alert('Transaction updated successfully!');
-                    $('#editTransactionForm')[0].reset();
-                    loadTransactions();
-                },
-                error: function () {
-                    alert('Error adding transaction.');
-                }
-            });
+                    url: '<?php echo BASE_URL; ?>transaction/edit',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        console.log(response);
+                        $('#editFormDiv').hide();
+                        $('#editTransactionForm')[0].reset();
+                        loadTransactions();
+                    },
+                    error: function () {
+                        alert('Error adding transaction.');
+                    }
+                });
             }
         });
     });
@@ -142,7 +177,16 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
                     for (let i = 0; i < transactions.length; i++) {
                         let transaction = transactions[i];
                         let transactionType = (transaction.type == 'expense') ? '<span class="expense-badge">' + transaction.type + '</span>' : '<span class="income-badge">' + transaction.type + '</span>';
-                        $('#transactionsTable tbody').append(`<tr><td>${transaction.id}</td><td>${transaction.description}</td><td>${transactionType}</td><td>${transaction.amount}</td><td>${transaction.date}</td><td><button onclick="populateEditTransaction(${transaction.id},'${transaction.description}',${transaction.amount},'${transaction.type}')">Edit</button><button onclick="deleteTransaction(${transaction.id})">Delete</button></td></tr>`);
+                        $('#transactionsTable tbody').append(`<tr><td>${transaction.id}</td><td>${transaction.description}</td><td>${transactionType}</td><td>$${transaction.amount}</td><td>${transaction.date}</td><td><button class="btn btn-primary" onclick="populateEditTransaction(${transaction.id},'${transaction.description}',${transaction.amount},'${transaction.type}')">Edit</button>&nbsp;<button class="btn btn-danger" onclick="deleteTransaction(${transaction.id})">Delete</button></td></tr>`);
+                    }
+
+                    $('.income-total-amount').text('$' + response.totalIncome.toFixed(2));
+                    $('.expense-total-amount').text('$' + response.totalExpense.toFixed(2));
+                    let net_total = response.totalIncome - response.totalExpense;
+                    if (net_total < 0) {
+                        $('.net-total-amount').css('color', 'red').text('-$' + Math.abs(net_total).toFixed(2));
+                    } else {
+                        $('.net-total-amount').css('color', 'green').text('$' + net_total.toFixed(2));
                     }
                 }
             },
@@ -153,18 +197,19 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
     }
 
     function populateEditTransaction(id, description, amount, type) {
+        $('#editFormDiv').fadeIn();
         $('#edit_id').val(id);
         $('#edit_desc').val(description);
         $('#edit_amount').val(amount);
         $('#edit_type').val(type);
     }
-    
+
     function deleteTransaction(id) {
         $.ajax({
             url: '<?php echo BASE_URL; ?>transaction/delete',
             type: 'POST',
             data: {
-                id:id
+                id: id
             },
             success: function (response) {
                 console.log(response);
