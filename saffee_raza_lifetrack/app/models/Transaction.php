@@ -17,6 +17,10 @@ class Transaction {
             $conditions[] = "DATE(date) <= :endDate";
         }
 
+        if (isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
+            $conditions[] = "user_id = :user_id";
+        }
+
         if ($conditions) {
             $sql .= " WHERE " . implode(" AND ", $conditions);
         }
@@ -30,6 +34,9 @@ class Transaction {
         }
         if ($endDate) {
             $stmt->bindParam(':endDate', $endDate);
+        }
+        if (isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
+            $stmt->bindParam(':user_id', $_SESSION['user_id']);
         }
 
         $stmt->execute();
@@ -54,13 +61,12 @@ class Transaction {
         $stmt->execute();
     }
     public function editTransaction($user_id, $edit_id, $description, $type, $amount) {
-        $sql = "UPDATE transactions SET description = :description, type = :type, amount = :amount WHERE user_id = :user_id AND id = :edit_id";
+        $sql = "UPDATE transactions SET description = :description, type = :type, amount = :amount WHERE id = :edit_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':edit_id', $edit_id);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':type', $type);
         $stmt->bindParam(':amount', $amount);
+        $stmt->bindParam(':edit_id', $edit_id);
         $stmt->execute();
     }
 }

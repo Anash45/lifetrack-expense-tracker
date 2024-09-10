@@ -7,6 +7,9 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
 ?>
 <div class="container">
     <h2 class="title">Dashboard</h2>
+    <div>
+        <button class="btn btn-success" id="add-transaction-btn" style="margin-bottom: 20px;">Add Transaction</button>
+    </div>
     <div id="addFormDiv" class="form-box" style="display: none;">
         <!-- Add Transaction Form -->
         <h3 class="form-title">Add Transaction</h3>
@@ -27,6 +30,7 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
                 <input type="number" id="amount" class="inp" name="amount" required>
             </div>
             <div class="form-group">
+                <button type="button" class="btn btn-warning" onclick="hideBox(event)">Cancel</button>
                 <button type="submit" class="btn btn-success">Add Transaction</button>
             </div>
         </form>
@@ -52,6 +56,7 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
                 <input type="number" id="edit_amount" class="inp" name="edit_amount" required>
             </div>
             <div class="form-group">
+                <button type="button" class="btn btn-warning" onclick="hideBox(event)">Cancel</button>
                 <button type="submit" class="btn btn-info">Update Transaction</button>
             </div>
         </form>
@@ -78,21 +83,24 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
         <div class="totals">
             <div class="income-total">
                 <span>Total Income</span>
-                <h3 class="income-total-amount">$3000.00</h3>
+                <h3 class="income-total-amount">$0.00</h3>
             </div>
             <div class="expense-total">
                 <span>Total Expense</span>
-                <h3 class="expense-total-amount">$3000.00</h3>
+                <h3 class="expense-total-amount">$0.00</h3>
             </div>
             <div class="net-total">
                 <span>Net Total</span>
-                <h3 class="net-total-amount">$3000.00</h3>
+                <h3 class="net-total-amount">$0.00</h3>
             </div>
         </div>
         <table id="transactionsTable">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') { ?>
+                        <th>User</th>
+                    <?php } ?>
                     <th>Description</th>
                     <th>Type</th>
                     <th>Amount</th>
@@ -101,12 +109,15 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
                 </tr>
             </thead>
             <tbody>
-                
             </tbody>
         </table>
     </div>
 </div>
 <script>
+    function hideBox(e) {
+        let target = e.target;
+        $(target).closest('.form-box').hide();
+    }
     // Load transactions on page load
     $(document).ready(function () {
         $('#add-transaction-btn').on('click', function () {
@@ -164,6 +175,11 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
 
     // Function to load transactions based on date range
     function loadTransactions() {
+        let isAdmin = <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+            echo 'true';
+        } else {
+            echo 'false';
+        } ?>;
         $.ajax({
             url: '<?php echo BASE_URL; ?>transaction/get',
             type: 'GET',
@@ -176,8 +192,9 @@ if (!isUserLoggedIn() && $controllerName !== 'UserController' && $methodName !==
                 if (transactions.length > 0) {
                     for (let i = 0; i < transactions.length; i++) {
                         let transaction = transactions[i];
+                        let userName = (isAdmin) ? `<td>${transaction['user']}</td>` : '';
                         let transactionType = (transaction.type == 'expense') ? '<span class="expense-badge">' + transaction.type + '</span>' : '<span class="income-badge">' + transaction.type + '</span>';
-                        $('#transactionsTable tbody').append(`<tr><td>${transaction.id}</td><td>${transaction.description}</td><td>${transactionType}</td><td>$${transaction.amount}</td><td>${transaction.date}</td><td><button class="btn btn-primary" onclick="populateEditTransaction(${transaction.id},'${transaction.description}',${transaction.amount},'${transaction.type}')">Edit</button>&nbsp;<button class="btn btn-danger" onclick="deleteTransaction(${transaction.id})">Delete</button></td></tr>`);
+                        $('#transactionsTable tbody').append(`<tr><td>${transaction.id}</td>${userName}<td>${transaction.description}</td><td>${transactionType}</td><td>$${transaction.amount}</td><td>${transaction.date}</td><td><button class="btn btn-primary" onclick="populateEditTransaction(${transaction.id},'${transaction.description}',${transaction.amount},'${transaction.type}')">Edit</button>&nbsp;<button class="btn btn-danger" onclick="deleteTransaction(${transaction.id})">Delete</button></td></tr>`);
                     }
 
                     $('.income-total-amount').text('$' + response.totalIncome.toFixed(2));

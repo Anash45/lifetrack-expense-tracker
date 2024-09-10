@@ -14,7 +14,10 @@
             <div class="container">
                 <img src="<?php echo BASE_URL; ?>img/logo.png" alt="Logo" class="h-logo">
                 <nav>
-                    <button class="btn btn-success" id="add-transaction-btn">Add Transaction</button>
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'){
+                        echo '<a class="btn btn-primary" href="'.BASE_URL.'user/users">Users</a>';
+                    } ?>
+                    <a class="btn btn-success" href="<?php echo BASE_URL; ?>dashboard">Transactions</a>
                     <a class="btn btn-danger" href="<?php echo BASE_URL; ?>user/logout">Logout</a>
                 </nav>
             </div>

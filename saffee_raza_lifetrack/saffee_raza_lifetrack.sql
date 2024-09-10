@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 09:44 AM
+-- Generation Time: Sep 10, 2024 at 08:19 PM
 -- Server version: 8.0.39
 -- PHP Version: 8.1.25
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `saffee_raza_lifetrack`
 --
-CREATE DATABASE IF NOT EXISTS `saffee_raza_lifetrack` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `saffee_raza_lifetrack`;
 
 -- --------------------------------------------------------
 
@@ -43,9 +41,17 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `user_id`, `type`, `amount`, `description`, `date`) VALUES
-(2, 1, 'expense', 500.00, 'Food', '2024-09-07 22:43:14'),
-(3, 1, 'expense', 322.00, 'Fast Food', '2024-09-07 22:43:41'),
-(4, 1, 'income', 14000.00, 'Salary', '2024-09-07 22:44:35');
+(7, 2, 'expense', 300.00, 'Food', '2024-09-10 15:52:11'),
+(8, 2, 'income', 2000.00, 'Salary', '2024-09-08 15:52:25'),
+(9, 2, 'expense', 100.00, 'Fuel', '2024-09-10 15:52:36'),
+(10, 5, 'expense', 300.00, 'Test 2', '2024-09-10 15:57:51'),
+(11, 5, 'expense', 400.00, 'Test 3', '2024-09-10 15:57:58'),
+(12, 5, 'expense', 1200.00, 'Fuel 1', '2024-09-10 15:58:20'),
+(13, 7, 'income', 2000.00, 'Salary', '2024-09-10 16:14:15'),
+(14, 7, 'expense', 200.00, 'Food', '2024-09-10 16:14:23'),
+(15, 7, 'expense', 100.00, 'Fuel', '2024-09-10 16:14:33'),
+(16, 7, 'income', 5000.00, 'Freelance', '2024-09-10 16:14:50'),
+(17, 7, 'expense', 10000.00, 'Car Buy', '2024-09-10 16:15:05');
 
 -- --------------------------------------------------------
 
@@ -58,6 +64,7 @@ CREATE TABLE `users` (
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -65,8 +72,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`) VALUES
-(1, 'Anas', 'abc@xyz.com', '$2y$10$BzJ8jKC9xhe5R3XLfyU2Kuj8cOJcgO4M0ULwzf7Mzgnu9wXFBXJNS', '2024-09-07 21:22:27');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `created_at`) VALUES
+(2, 'Admin', 'admin@gmail.com', '$2y$10$BzJ8jKC9xhe5R3XLfyU2Kuj8cOJcgO4M0ULwzf7Mzgnu9wXFBXJNS', 'admin', '2024-09-10 14:32:20'),
+(5, 'Test 1', 'abc1@gmail.com', '$2y$10$sgNd3S03eiZCTQZhzU66O.8nwGH27VHXrs5WVkZ1IfoUK/J5KnWQe', 'user', '2024-09-10 15:56:48'),
+(6, 'Test 2', 'abc2@gmail.com', '$2y$10$oM710Kr7fkvJXZ23YDu4U.yFt2vcieWXwNTM/3GVmZGb3VX.HtmCO', 'user', '2024-09-10 15:57:09'),
+(7, 'Abcd', 'abc3@xyz.com', '$2y$10$6CCGzaRKLQN7YdCeDan8Leq6D4kzZ.noAhqzvLxd3BYuLUvpaLb6.', 'user', '2024-09-10 16:13:55');
 
 --
 -- Indexes for dumped tables
@@ -94,13 +104,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

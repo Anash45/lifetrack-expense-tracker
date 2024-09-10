@@ -7,13 +7,17 @@ class TransactionController {
         $transactionModel = new Transaction();
         $transactions = $transactionModel->getTransactions($startDate, $endDate);
 
+        $userModel = new User();
+
         $totalExpense = $totalIncome = 0;
         foreach ($transactions as $key => $transaction) {
+            $user = $userModel->getUserById($transaction['user_id']);
             if($transaction['type'] == 'income'){
                 $totalIncome += $transaction['amount'];
             }else if($transaction['type'] == 'expense'){
                 $totalExpense += $transaction['amount'];
             }
+            $transactions[$key]['user'] = $user['name'];
             $transaction['amount'] = number_format($transaction['amount'], 2);
             $transactions[$key]['date'] = date('h:i a | d M, Y', strtotime($transaction['date']));
         }

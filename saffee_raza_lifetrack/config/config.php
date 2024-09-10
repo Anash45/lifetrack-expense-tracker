@@ -1,2 +1,2 @@
 <?php
-define('BASE_URL', '/saffee_raza_lifetrack/public/');
+define('BASE_URL', '/hanzalah/saffeeraza/saffee_raza_lifetrack/public/');
